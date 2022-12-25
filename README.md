@@ -1,2 +1,2 @@
 # NeuroNetwork
-Here is my test in Neuro perceptrons - just testing
+Here is my test in Neuro perceptrons - just for experiments
