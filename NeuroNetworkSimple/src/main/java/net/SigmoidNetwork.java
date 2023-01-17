@@ -27,13 +27,14 @@ public class SigmoidNetwork {
                 }
                 z[j] += BIAS;
                 //outputs[j] = z[j] > 0 ? 1 : 0; // Perceptron output
-                //outputs[j] = 1 / (1 + Math.exp(-z[j])); //Sigmoid output
-                outputs[j] = z[j] >= 0.5 ? 1 : 0; // Perceptron output
+                outputs[j] = 1 / (1 + Math.exp(-z[j])); //Sigmoid output
+                //outputs[j] = z[j] >= 0.5 ? 1 : 0; // Perceptron output
             }
             inputs = outputs;
             //System.out.println(size);
         }
 
+        System.out.println("sizes="  + sizes.length);
         System.out.println("test");
         return outputs;
     }
