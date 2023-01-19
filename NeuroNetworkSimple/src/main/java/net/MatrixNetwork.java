@@ -37,7 +37,7 @@ public class MatrixNetwork {
             double[][] temp = new double[sizes[i]][];
             for (int j = 0; j < sizes[i]; j++) {
                 double[] w = new double[sizes[i-1]];
-                for (int k = 0; k < sizes[i =1]; k++) {
+                for (int k = 0; k < sizes[i - 1]; k++) {
                     w[k] = 0; // Set constant value
                 }
                 temp[j] = w;
@@ -70,10 +70,10 @@ public class MatrixNetwork {
 //        return outputs;
 //    }
 
-    private DoubleMatrix feedForward(DoubleMatrix a) {
+    public DoubleMatrix feedForward(DoubleMatrix a) {
         for (int i = 0; i < numLayers - 1; i++) {
             double[] z = new double[weights[i].rows];
-            for (int j = 0; j < weights[j].length; j++) {
+            for (int j = 0; j < weights[i].rows; j++) {
                 z[j] = weights[i].getRow(j).dot(a) + biases[i].get(j);
             }
             DoubleMatrix output = new DoubleMatrix(z);
