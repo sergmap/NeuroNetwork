@@ -1,7 +1,4 @@
-import net.DecimalToBinarySimpleTest;
-import net.MatrixNetwork;
-import net.PerceptronNetwork;
-import net.SigmoidNetwork;
+import net.*;
 import org.jblas.DoubleMatrix;
 
 public class MainClass {
@@ -24,10 +21,19 @@ public class MainClass {
         //}
         //System.out.println(perceptronNetwork);
 
-        DecimalToBinarySimpleTest net = new DecimalToBinarySimpleTest(10, 4);
-        double[] inputs = {0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
-        DoubleMatrix outputs = net.feedForward(new DoubleMatrix(inputs));
+        //DecimalToBinarySimpleTest net = new DecimalToBinarySimpleTest(10, 4);
+        //double[] inputs = {0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
+        //DoubleMatrix outputs = net.feedForward(new DoubleMatrix(inputs));
+        //System.out.println(outputs.toString("%.0f"));
 
-        System.out.println(outputs.toString("%.0f"));
+        SigmoidNetworkExt net = new SigmoidNetworkExt(1, 1);
+        double[] inputs = {0};
+        double[] outputs = {0};
+        double[][] inputsOutputs = new double[][] {inputs, outputs};
+        DoubleMatrix[][] deltas = net.backProp(inputsOutputs);
+        for (int i = 0; i < net.biases.length; i++){
+            net.biases[i] = net.biases[i].sub(deltas[0][i].mul(4));
+        }
+        System.out.println("Complete");
     }
 }
