@@ -1,11 +1,10 @@
 package net;
 
 import org.jblas.DoubleMatrix;
+import org.jblas.util.Random;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+
+import java.util.*;
 
 public class SigmoidNetworkExt {
 
@@ -27,7 +26,8 @@ public class SigmoidNetworkExt {
         for(int i = 1; i < sizes.length; i++) {
             double[][] temp = new double[sizes[i]][];
             for (int j = 0; j < sizes[i]; j++) {
-                double[] b = new double[] { 1 }; // Set constant value
+                //double[] b = new double[] { 1 }; // Set constant value
+                double[] b = new double[] {Random.nextGaussian()};
                 temp[j] = b;
             }
             biases[i-1] = new DoubleMatrix(temp);
@@ -39,7 +39,8 @@ public class SigmoidNetworkExt {
             for (int j = 0; j < sizes[i]; j++) {
                 double[] w = new double[sizes[i-1]];
                 for (int k = 0; k < sizes[i - 1]; k++) {
-                    w[k] = 1; // Set constant value
+                    //w[k] = 1; // Set constant value
+                    w[k] = Random.nextGaussian();
                 }
                 temp[j] = w;
             }
@@ -69,6 +70,12 @@ public class SigmoidNetworkExt {
         return a;
     }
 
+    /**
+     *
+     * @param z - input vector created by finding dot product of weights and inputs
+     *          and added a bias of a neuron
+     * @return output vector - inputs for the next layer
+     */
     private DoubleMatrix sigmoid(DoubleMatrix z) {
         double[] output = new double[z.length];
         for (int i = 0; i < output.length; i++) {
@@ -77,8 +84,37 @@ public class SigmoidNetworkExt {
         return new DoubleMatrix(output);
     }
 
-    public void SGD(List<double[][]> trainingData, int epochs, int miniBatchSize, double eta) {
+    private int evaluate(List<double[][]> testData) {
+        int sum = 0;
+        for (double[][] inputOutput : testData) {
+            DoubleMatrix x = new DoubleMatrix(inputOutput[0]);
+            DoubleMatrix y = new DoubleMatrix(inputOutput[1]);
+            DoubleMatrix netOutput = feedForward(x);
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sb2 = new StringBuilder();
+            for (double d : netOutput.toArray()) {
+                sb.append(d >= 0.5 ? 1 : 0);
+            }
+            for (double d : y.toArray()) {
+                sb2.append(d >= 0.5 ? 1 : 0);
+            }
+            if (Integer.parseInt(sb.toString(), 2) == Integer.parseInt(sb2.toString(), 2)) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    public void SGD(List<double[][]> trainingData, int epochs, int miniBatchSize, double eta, List<double[][]> testData) {
+
+        int nTest = 0;
+
         int n = trainingData.size();
+
+        if (testData != null) {
+            nTest = testData.size();
+        }
+
         for (int j = 0; j < epochs; j++) {
             Collections.shuffle(trainingData);
             List<List<double[][]>> miniBatches = new ArrayList<>();
@@ -88,7 +124,13 @@ public class SigmoidNetworkExt {
             for (List<double[][]> miniBatch : miniBatches) {
                 updateMiniBatch(miniBatch, eta);
             }
-            System.out.println(String.format("Epoch $d complete", j));
+
+            if (testData != null) {
+                int e = evaluate(testData);
+                System.out.println(String.format("Epoch %d: %d / %d", j, e, nTest));
+            } else {
+                System.out.println(String.format("Epoch %d complete", j));
+            }
         }
     }
 
@@ -102,6 +144,7 @@ public class SigmoidNetworkExt {
         for (int i = 0; i < nablaW.length; i++) {
             nablaW[i] = new DoubleMatrix(weights[i].getRows(), weights[i].getColumns());
         }
+
         for (double[][] inputOutput : miniBatch) {
             DoubleMatrix[][] deltas = backProp(inputOutput);
 
@@ -140,10 +183,10 @@ public class SigmoidNetworkExt {
             nablaB[i] = new DoubleMatrix(biases[i].getRows(), biases[i].getColumns());
         }
         for (int i = 0; i < nablaW.length; i++) {
-            nablaB[i] = new DoubleMatrix(weights[i].getRows(), weights[i].getColumns());
+            nablaW[i] = new DoubleMatrix(weights[i].getRows(), weights[i].getColumns());
         }
 
-        //FeedForward
+        // FeedForward
         DoubleMatrix activation = new DoubleMatrix(inputsOutputs[0]);
         DoubleMatrix[] activations = new DoubleMatrix[numLayers];
         activations[0] = activation;
@@ -160,21 +203,20 @@ public class SigmoidNetworkExt {
             activations[i + 1] = activation;
         }
 
-        //Backward pass
+        // Backward pass
         DoubleMatrix output = new DoubleMatrix(inputsOutputs[1]);
         DoubleMatrix delta = costDerivative(activations[activations.length - 1], output)
                 .mul(sigmoidPrime(zs[zs.length - 1])); // BP1
-        nablaB[nablaB.length - 1] = delta;  // BP3
+        nablaB[nablaB.length - 1] = delta; // BP3
         nablaW[nablaW.length - 1] = delta.mmul(activations[activations.length - 2].transpose()); // BP4
-
         for (int layer = 2; layer < numLayers; layer++) {
             DoubleMatrix z = zs[zs.length - layer];
             DoubleMatrix sp = sigmoidPrime(z);
             delta = weights[weights.length + 1 - layer].transpose().mmul(delta).mul(sp); // BP2
             nablaB[nablaB.length - layer] = delta; // BP3
-            nablaW[nablaW.length - layer] = delta.mmul(activations[activations.length - 1 - layer].transpose());
+            nablaW[nablaW.length - layer] = delta.mmul(activations[activations.length - 1 - layer].transpose()); // BP4
         }
-        return new DoubleMatrix[][] {nablaB, nablaW};
+        return new DoubleMatrix[][] { nablaB, nablaW };
     }
 
     private DoubleMatrix sigmoidPrime(DoubleMatrix z) {
