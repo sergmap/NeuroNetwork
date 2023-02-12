@@ -1,13 +1,18 @@
 import net.*;
 import org.jblas.DoubleMatrix;
 
+import java.io.BufferedReader;
+import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class MainClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("Hello Serg");
 
         //SigmoidNetwork perceptronNetwork = new SigmoidNetwork(3, 3, 2);
@@ -41,24 +46,24 @@ public class MainClass {
         //        }
         //        System.out.println("Complete");
 
-        List<double[][]> inputsOutputs = new ArrayList<>();
-        for (int i = 0; i < 256; i++) {
-            double[][] io = new double[2][];
-            double[] x = new double[256];
-            double[] y = new double[8];
+        //String userName = Console.ReadLine();
+        //Scanner scanner = new Scanner(System.in);
+        //String name = scanner.nextLine();
+        //System.out.println("Hello " + name);
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-            String binary = String.format("%8s", Integer.toBinaryString(i)).replace(' ', '0');
-            //x = Stream.iterate(0, n -> 0).limit(256).mapToDouble(Double::new).toArray();
-            x = Stream.iterate(0, n -> 0).limit(256).mapToDouble(Double::new).toArray();
-            y = Arrays.stream(binary.split("")).mapToDouble(Double::parseDouble).toArray();
+//        System.out.print("Введите имя: ");
+//            String name = reader.readLine();
+//        System.out.print("Введите возраст: ");
+//            String sAge = reader.readLine();
+//        int nAge = Integer.parseInt(sAge);
+//        System.out.println("Hello " + name + " твой возраст " + sAge.toString());
 
-            x[i] = 1;
-            io[0] = x;
-            io[1] = y;
-            inputsOutputs.add(io);
-        }
+        //String binary1 = String.format("%8s", Integer.toBinaryString(256)).replace(' ', '0');
+        //System.out.println(binary1);
 
-        SigmoidNetworkExt net = new SigmoidNetworkExt(256, 32, 8);
-        net.SGD(inputsOutputs, 1000, 8, 15, inputsOutputs.subList(0, 100));
+
+        DecimalToBinaryExt decimalToBinaryExt = new DecimalToBinaryExt();
+        decimalToBinaryExt.Learning();
     }
 }
