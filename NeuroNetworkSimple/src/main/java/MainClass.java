@@ -50,14 +50,7 @@ public class MainClass {
         //Scanner scanner = new Scanner(System.in);
         //String name = scanner.nextLine();
         //System.out.println("Hello " + name);
-        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-//        System.out.print("Введите имя: ");
-//            String name = reader.readLine();
-//        System.out.print("Введите возраст: ");
-//            String sAge = reader.readLine();
-//        int nAge = Integer.parseInt(sAge);
-//        System.out.println("Hello " + name + " твой возраст " + sAge.toString());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         //String binary1 = String.format("%8s", Integer.toBinaryString(256)).replace(' ', '0');
         //System.out.println(binary1);
@@ -65,5 +58,6 @@ public class MainClass {
 
         DecimalToBinaryExt decimalToBinaryExt = new DecimalToBinaryExt();
         decimalToBinaryExt.Learning();
+        decimalToBinaryExt.Test();
     }
 }
