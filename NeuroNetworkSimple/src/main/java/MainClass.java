@@ -1,5 +1,6 @@
 import net.*;
 import org.jblas.DoubleMatrix;
+import parse.ParsingText;
 
 import java.io.BufferedReader;
 import java.io.Console;
@@ -55,8 +56,11 @@ public class MainClass {
         //String binary1 = String.format("%8s", Integer.toBinaryString(256)).replace(' ', '0');
         //System.out.println(binary1);
 
-        DecimalToBinaryExt decimalToBinaryExt = new DecimalToBinaryExt();
-        decimalToBinaryExt.Learning();
-        decimalToBinaryExt.Test();
+        //DecimalToBinaryExt decimalToBinaryExt = new DecimalToBinaryExt();
+        //decimalToBinaryExt.Learning();
+        //decimalToBinaryExt.Test();
+
+        ParsingText parsingText = new ParsingText();
+        parsingText.Test();
     }
 }
