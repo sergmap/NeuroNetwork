@@ -60,7 +60,10 @@ public class MainClass {
         //decimalToBinaryExt.Learning();
         //decimalToBinaryExt.Test();
 
-        ParsingText parsingText = new ParsingText();
-        parsingText.Test();
+        //ParsingText parsingText = new ParsingText();
+        //parsingText.Test();
+
+        SemanticByCharNet net = new SemanticByCharNet();
+        net.Learning();
     }
 }

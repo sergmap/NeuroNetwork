@@ -14,7 +14,7 @@ public class ParsingText {
         File file = new File(filename_in);
         List<String> arrayString = new ArrayList<String>();
         try {
-            //создаем объект FileReader для объекта File
+            //создаем объект FileReader для чтения объекта File
             FileReader fr = new FileReader(file);
             //создаем BufferedReader с существующего FileReader для построчного считывания
             BufferedReader reader = new BufferedReader(fr);

@@ -98,7 +98,11 @@ public class SigmoidNetworkExt {
             for (double d : y.toArray()) {
                 sb2.append(d >= 0.5 ? 1 : 0);
             }
-            if (Integer.parseInt(sb.toString(), 2) == Integer.parseInt(sb2.toString(), 2)) {
+            //if (Integer.parseInt(sb.toString(), 2) == Integer.parseInt(sb2.toString(), 2))
+            if (sb.toString().equals(sb2.toString()))
+            {
+                //System.out.println("sb.toString()=" + sb.toString());
+                //System.out.println("sb2.toString()=" + sb2.toString());
                 sum++;
             }
         }
@@ -119,7 +123,12 @@ public class SigmoidNetworkExt {
             Collections.shuffle(trainingData);
             List<List<double[][]>> miniBatches = new ArrayList<>();
             for (int k = 0; k < n; k += miniBatchSize) {
-                miniBatches.add(trainingData.subList(k, k + miniBatchSize));
+                if (k + miniBatchSize < n)
+                {
+                    miniBatches.add(trainingData.subList(k, k + miniBatchSize));
+                }
+                else {miniBatches.add(trainingData.subList(k, k + (n - k)));}
+
             }
             for (List<double[][]> miniBatch : miniBatches) {
                 updateMiniBatch(miniBatch, eta);
@@ -155,6 +164,8 @@ public class SigmoidNetworkExt {
                 nablaB[i] = nablaB[i].add(deltaNablaB[i]);
             }
             for (int i = 0; i < nablaW.length; i++) {
+                //System.out.println("nablaW.length = " + nablaW[i].length);
+                //System.out.println("deltaNablaW[i].length = " + deltaNablaW[i].length);
                 nablaW[i] = nablaW[i].add(deltaNablaW[i]);
             }
         }
