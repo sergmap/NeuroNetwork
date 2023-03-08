@@ -26,16 +26,42 @@ public class ParsingText {
             while (line != null) {
                 tempString = "";
                 for (int i = 0; i < line.length(); i++) {
-                    if ((line.charAt(i) != '.')
-                    && (line.charAt(i) != '…')
-                    && (line.charAt(i) != '”')
-                    && (line.charAt(i) != ';')) {
-                        tempString = tempString + line.charAt(i);
+                    char tmpChar = line.charAt(i);
+                    int tmpCharCode = (int) tmpChar;
+//                    if ((line.charAt(i) != '.')
+//                    && (line.charAt(i) != '…')
+//                    && (line.charAt(i) != '”')
+//                    && (line.charAt(i) != ';')
+//                    && ((int)line.charAt(i) != 13)
+//                    && ((int)line.charAt(i) != 33)
+//                    && ((int)line.charAt(i) != 45)
+//                    && ((int)line.charAt(i) != 44)
+//                    && ((int)line.charAt(i) != 46)
+//                    && ((int)line.charAt(i) != 58)
+//                    && ((int)line.charAt(i) != 63)
+//                    )
+//                    {
+//
+//                        tempString = tempString + tmpChar;
+//                    }
+//                    else {
+//                        arrayString.add(tempString);
+//                        tempString = "";
+//                    }
+                    if (
+                       (tmpCharCode != 32)
+                       && (tmpCharCode != 58)
+                       && (tmpCharCode != 10)
+                        )
+                    {
+                        tempString = tempString + tmpChar;
                     }
-                    else {
+
+                    if (tmpChar == '.') {
                         arrayString.add(tempString);
                         tempString = "";
                     }
+
                 }
                 line = reader.readLine();
             }

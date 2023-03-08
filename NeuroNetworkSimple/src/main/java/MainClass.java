@@ -60,10 +60,15 @@ public class MainClass {
         //decimalToBinaryExt.Learning();
         //decimalToBinaryExt.Test();
 
-        //ParsingText parsingText = new ParsingText();
-        //parsingText.Test();
+        ParsingText parsingText = new ParsingText();
+        parsingText.Test();
 
         SemanticByCharNet net = new SemanticByCharNet();
+        //net.PreviewLearningFile();
         net.Learning();
+        net.Test();
+        //DoubleMatrix convertResult = net.ConvertToInputBit("фываа");
+
+        //System.out.println(convertResult);
     }
 }

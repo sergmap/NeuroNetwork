@@ -86,6 +86,7 @@ public class SigmoidNetworkExt {
 
     private int evaluate(List<double[][]> testData) {
         int sum = 0;
+
         for (double[][] inputOutput : testData) {
             DoubleMatrix x = new DoubleMatrix(inputOutput[0]);
             DoubleMatrix y = new DoubleMatrix(inputOutput[1]);
