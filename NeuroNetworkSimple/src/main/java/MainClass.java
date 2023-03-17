@@ -60,15 +60,64 @@ public class MainClass {
         //decimalToBinaryExt.Learning();
         //decimalToBinaryExt.Test();
 
-        ParsingText parsingText = new ParsingText();
-        parsingText.Test();
+        //ParsingText parsingText = new ParsingText();
+        //parsingText.Test();
 
-        SemanticByCharNet net = new SemanticByCharNet();
+        //SemanticByCharNet net = new SemanticByCharNet();
         //net.PreviewLearningFile();
-        net.Learning();
-        net.Test();
+        //net.Learning();
+        //net.Test();
         //DoubleMatrix convertResult = net.ConvertToInputBit("фываа");
 
         //System.out.println(convertResult);
+
+        //SemanticByCharNetV2 net = new SemanticByCharNetV2();
+        //net.Learning();
+        //net.Test();
+
+        //DoubleMatrix[] testMatrix = new DoubleMatrix[10];
+        //DoubleMatrix testMatrix = new DoubleMatrix(10);
+        //System.out.println(testMatrix);
+
+        //DoubleMatrix[] testMatrix = new DoubleMatrix[10];
+        //double[] dTest = new double[10];
+        //dTest[0] = 1;
+        //for (int i = 0; i < testMatrix.length; i++) {
+        //    testMatrix[i] = new DoubleMatrix(dTest);
+        //}
+
+        //for (int i = 0; i < testMatrix.length; i++) {
+        //    System.out.println(testMatrix[i]);
+        //}
+        //System.out.println(testMatrix.toString());
+        //int[][] testArray
+
+        //for (int i = 0; i < testMatrix.)
+        SemanticByCharRecurrentNet net = new SemanticByCharRecurrentNet();
+
+        DoubleMatrix[] tmpTrack = new DoubleMatrix[10];
+        double[] dTrack = new double[7];
+        dTrack[0] = 1;
+        for (int i = 0; i < tmpTrack.length; i++) {
+            tmpTrack[i] = new DoubleMatrix(dTrack);
+        }
+
+        //double[] dtest1 =
+        DoubleMatrix[] tmpPushValue = new DoubleMatrix[10];
+        double[] dPush = new double[1];
+        dPush[0] = 1;
+        for (int i = 0; i < tmpPushValue.length; i++) {
+            tmpPushValue[i] = new DoubleMatrix(dPush);
+        }
+
+        DoubleMatrix[] tmpResultPush = net.PushRecurrentValue(tmpTrack, tmpPushValue);
+
+        for (int i = 0; i < tmpResultPush.length; i++) {
+            System.out.println(tmpResultPush[i]);
+        }
+
+
+        //System.out.println(dTrack.toString());
+        //System.out.println(tmpTrack.toString());
     }
 }
