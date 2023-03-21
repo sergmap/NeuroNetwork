@@ -92,12 +92,11 @@ public class MainClass {
         //System.out.println(testMatrix.toString());
         //int[][] testArray
 
-        //for (int i = 0; i < testMatrix.)
-        SemanticByCharRecurrentNet net = new SemanticByCharRecurrentNet();
+        /*SemanticByCharRecurrentNet net = new SemanticByCharRecurrentNet();
 
-        DoubleMatrix[] tmpTrack = new DoubleMatrix[10];
-        double[] dTrack = new double[7];
-        dTrack[0] = 1;
+        DoubleMatrix[] tmpTrack = new DoubleMatrix[5];
+        double[] dTrack = new double[10];
+        dTrack[0] = 2;
         for (int i = 0; i < tmpTrack.length; i++) {
             tmpTrack[i] = new DoubleMatrix(dTrack);
         }
@@ -115,9 +114,10 @@ public class MainClass {
         for (int i = 0; i < tmpResultPush.length; i++) {
             System.out.println(tmpResultPush[i]);
         }
-
-
         //System.out.println(dTrack.toString());
-        //System.out.println(tmpTrack.toString());
+        //System.out.println(tmpTrack.toString());*/
+
+        SemanticByCharRecurrentNet net = new SemanticByCharRecurrentNet();
+        net.Learning();
     }
 }
